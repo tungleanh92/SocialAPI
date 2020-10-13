@@ -34,8 +34,8 @@ const authToken = require('./middlewares/auth.middleware');
 
 app.use('/api/signup', apiSignup);
 app.use('/api/login', apiLogin);
-// app.use('/api/createCmt', apiCreateCmt);
+app.use('/api/createCmt', authToken.checkToken, authToken.protectedRoute, apiCreateCmt);
 app.use('/api/createPost', authToken.checkToken, authToken.protectedRoute, apiCreatePost);
-// app.use('/api/showCmts', apiShowCmts);
-// app.use('/api/showPersonalPosts', apiShowPersonalPosts);
-// app.use('/api/showPosts', apiShowPosts);
+app.use('/api/showPersonalPosts', authToken.checkToken, authToken.protectedRoute, apiShowPersonalPosts);
+app.use('/api/showPosts', apiShowPosts);
+app.use('/api/showCmts', apiShowCmts);

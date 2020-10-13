@@ -18,30 +18,27 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-const Users = require("./users.model")(sequelize, Sequelize)
-const Posts = require("./posts.model")(sequelize, Sequelize)
-const Comments = require("./comments.model")(sequelize, Sequelize)
-Users.hasMany(Posts, { as: "posts" });
-Posts.belongsTo(Users, {
+db.users = require("./users.model")(sequelize, Sequelize)
+db.posts = require("./posts.model")(sequelize, Sequelize)
+db.comments = require("./comments.model")(sequelize, Sequelize)
+
+db.users.hasMany(db.posts);
+db.posts.belongsTo(db.users, {
     foreignKey: 'userId',
     allowNull: false,
 });
 
-Users.hasMany(Comments, { as: "comments" });
-Comments.belongsTo(Users, {
+db.users.hasMany(db.comments);
+db.comments.belongsTo(db.users, {
     foreignKey: 'userId',
     allowNull: false,
 
 });
 
-Posts.hasMany(Comments, { as: "comments" });
-Comments.belongsTo(Posts, {
+db.posts.hasMany(db.comments);
+db.comments.belongsTo(db.posts, {
     foreignKey: 'postId',
     allowNull: false,
-    as: "post"
 });
-Users.sync();
-Posts.sync();
-Comments.sync();
 
 module.exports = db;

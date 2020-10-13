@@ -1,0 +1,43 @@
+dang ky (them user)
+    - API method:post, url:/signup
+
+dang nhap user (login)
+    - API method:post, url:/login
+    - tra ve
+        token
+
+xem posts:
+    - API method:get, url:/showPosts
+    - trả về posts (tất cả post)
+
+xem cmts:
+    - API method:post, url:/showCmts
+    - body: postID
+    - trả về cmts (tất cả cmt)
+
+kem theo token (verify token):
+    xem posts cá nhân
+        - API method:get, url:/showPersonalPost
+
+    tao post
+        - API method:post, url:/createPost
+        - body: title, content
+                userID (ngầm đặt)
+
+    cmt post minh va post nguoi khac (tao cmt)
+        - API: method:post, url:/createCmt
+        - body: msg, postID
+                user: userID (ngầm đặt)
+
+DB:   
+user {
+    id, username, password
+}
+
+post {
+    id, title, content, userID (owner)
+}
+
+cmt {
+    id, msg, user(creater), postID
+}
